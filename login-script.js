@@ -130,7 +130,9 @@ class LoginManager {
     handleSignup(e) {
         e.preventDefault();
         
-        const email = prompt('Enter your email address for signup:');
+        const email = this.promptWithCancel('Enter your email address for signup:');
+        if (email === null) return; // User cancelled
+        
         if (!email || !this.isValidEmail(email)) {
             alert('Please enter a valid email address');
             return;
@@ -142,30 +144,41 @@ class LoginManager {
             return;
         }
         
-        const password = prompt('Enter your password (min 6 characters):');
+        const password = this.promptWithCancel('Enter your password (min 6 characters):');
+        if (password === null) return; // User cancelled
+        
         if (!password || password.length < 6) {
             alert('Password must be at least 6 characters');
             return;
         }
         
-        const name = prompt('Enter your name:');
+        const name = this.promptWithCancel('Enter your name:');
+        if (name === null) return; // User cancelled
+        
         if (!name || name.trim() === '') {
             alert('Please enter your name');
             return;
         }
         
-        const newUser = this.createUser(email, password, name.trim());
-        alert('Account created successfully! You can now login.');
-        
-        this.emailInput.value = email;
-        this.passwordInput.value = password;
-        this.passwordInput.focus();
+        try {
+            const newUser = this.createUser(email, password, name.trim());
+            alert('Account created successfully! You can now login.');
+            
+            this.emailInput.value = email;
+            this.passwordInput.value = password;
+            this.emailInput.focus();
+        } catch (error) {
+            console.error('Signup error:', error);
+            alert('Failed to create account. Please try again.');
+        }
     }
 
     handleForgotPassword(e) {
         e.preventDefault();
         
-        const email = prompt('Enter your email address to reset password:');
+        const email = this.promptWithCancel('Enter your email address to reset password:');
+        if (email === null) return; // User cancelled
+        
         if (!email || !this.isValidEmail(email)) {
             alert('Please enter a valid email address');
             return;
@@ -173,14 +186,16 @@ class LoginManager {
         
         const user = this.users.find(u => u.email.toLowerCase() === email.toLowerCase());
         if (user) {
-            const newPassword = prompt('Enter your new password (min 6 characters):');
+            const newPassword = this.promptWithCancel('Enter your new password (min 6 characters):');
+            if (newPassword === null) return; // User cancelled
+            
             if (newPassword && newPassword.length >= 6) {
                 user.password = newPassword;
                 this.saveUsers();
                 alert('Password reset successfully! You can now login with your new password.');
                 this.emailInput.value = email;
                 this.passwordInput.value = '';
-                this.passwordInput.focus();
+                this.emailInput.focus();
             } else {
                 alert('Password must be at least 6 characters');
             }
@@ -237,7 +252,6 @@ class LoginManager {
     showLoading(show) {
         this.loadingOverlay.style.display = show ? 'flex' : 'none';
         this.loginBtn.disabled = show;
-        this.googleBtn.disabled = show;
     }
 
     showSuccessAnimation() {
@@ -277,6 +291,15 @@ class LoginManager {
     static getCurrentUser() {
         const userData = sessionStorage.getItem(CONFIG.STORAGE.CURRENT_USER_KEY);
         return userData ? JSON.parse(userData) : null;
+    }
+
+    promptWithCancel(message) {
+        try {
+            return prompt(message);
+        } catch (error) {
+            console.error('Prompt error:', error);
+            return null;
+        }
     }
 
     static logout() {
