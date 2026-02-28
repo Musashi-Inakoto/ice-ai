@@ -1,0 +1,36 @@
+{
+  "name": "ice-cream-ai-chat",
+  "version": "1.0.0",
+  "description": "A modern, ice cream themed chat AI application with user authentication and OpenRouter API integration",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "build": "echo 'Static build complete'",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "ai",
+    "chat",
+    "openrouter",
+    "ice-cream",
+    "authentication",
+    "static-site"
+  ],
+  "author": "Ice Cream AI Team",
+  "license": "MIT",
+  "devDependencies": {
+    "vercel": "^latest"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ice-cream-ai-chat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/ice-cream-ai-chat/issues"
+  },
+  "homepage": "https://ice-cream-ai-chat.vercel.app"
+}
