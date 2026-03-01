@@ -7,7 +7,7 @@ function loadEnvVariables() {
     // For this demo, we'll simulate environment variable loading
     
     const envVars = {
-        OPENROUTER_API_KEY: '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' // Default fallback
+        OPENROUTER_API_KEY: '' // Default fallback
     };
 
     // Try to load from .env file content (simulated)
