@@ -14,18 +14,6 @@ A modern, ice cream themed chat AI application with user authentication and Open
 
 ## 📁 Project Structure
 
-```
-windsurf-project-2/
-├── index.html          # Main chat application
-├── login.html          # Login page
-├── styles.css          # Main app styles
-├── login-styles.css    # Login page styles
-├── script.js           # Main app JavaScript
-├── login-script.js     # Login functionality
-├── config.js           # Environment configuration
-├── .env                # Environment variables
-└── README.md           # This file
-```
 
 ## 🔧 Setup
 
